@@ -1,0 +1,7 @@
+<h1><%= @user.name %>のページ</h1>
+
+<p>プロフィール画像: <%= image_tag @user.image.url if @user.image.present? %></p>
+<p>メールアドレス: <%= @user.email %></p>
+
+<%= link_to "編集する", edit_user_path(@user.id) if  @user.id == current_user.id%>
+<%= link_to "画像一覧画面へ", pictures_path%>

@@ -1,0 +1,25 @@
+<%= form_with(model: picture) do |form| %>
+  <% if picture.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(picture.errors.count, "error") %> prohibited this picture from being saved:</h2>
+
+      <ul>
+        <% picture.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+ <body>
+    <% @pictures.each do |picture| %>
+      <tr>
+        <div><td><%= image_tag picture.image.url if picture.image.present? %></td></div>
+        <<td><%= picture.user.name %></td>
+        <td><%= picture.content %></td>
+        <td><%= link_to "詳細を確認", picture_path(picture.id) %></td>
+        <td><%= link_to "編集", edit_picture_path(picture.id) %></td>
+        <td><%= link_to "削除", picture_path(picture.id), method: :delete, data: {confirm: "本当に削除しますか?"} %></td>
+      </tr>
+    <% end %>
+  </body>
+<% end %>
