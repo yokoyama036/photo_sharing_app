@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   skip_before_action :login_required, only: [:new, :create]
+  before_action :set_user, only: [:edit, :show, :update, :destroy]
 
   def index
     @users = User.all
@@ -14,12 +15,13 @@ class UsersController < ApplicationController
   end
 
   def edit
-    set_user
+    unless current_user == @user
+      redirect_to new_user_path
+    end
   end
 
   def create
     @user = User.new(user_params)
-
     respond_to do |format|
       if @user.save
         format.html { redirect_to user_url(@user), notice: "User was successfully created." }
@@ -30,9 +32,8 @@ class UsersController < ApplicationController
       end
     end
   end
-
+  
   def update
-    set_user
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to user_url(@user), notice: "User was successfully updated." }

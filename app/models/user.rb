@@ -5,6 +5,7 @@ class User < ApplicationRecord
   has_many :favorite_pictures, through: :favorites, source: :picture
   has_secure_password
   validates :name, presence: true
+  validates :image, presence: true
   validates :email, presence: true ,
                     format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
   def already_favorited?(picture)

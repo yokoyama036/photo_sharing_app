@@ -1,4 +1,6 @@
 class PicturesController < ApplicationController
+  before_action :set_picture, only: [:edit, :show, :update, :destroy]
+  skip_before_action :login_required, only: [:new, :create]
 
   def index
     @pictures = Picture.all
@@ -7,7 +9,6 @@ class PicturesController < ApplicationController
   end
 
   def show
-    set_picture
   end
 
   def new
@@ -15,15 +16,16 @@ class PicturesController < ApplicationController
   end
 
   def edit
-    @picture = Picture.find(params[:id])
+    unless current_user == @picture.user
+      redirect_to pictures_path
+    end
   end
 
   def create
-    @picture = Picture.new(picture_params)
-    @picture.user_id = current_user.id
-
+    @picture = current_user.pictures.build(picture_params)
     respond_to do |format|
       if @picture.save
+        ContactMailer.contact_mail(@picture).deliver
         format.html { redirect_to picture_url(@picture), notice: "Picture was successfully created." }
         format.json { render :show, status: :created, location: @picture }
       else
@@ -34,7 +36,6 @@ class PicturesController < ApplicationController
   end
 
   def update
-    set_picture
     respond_to do |format|
       if @picture.update(picture_params)
         format.html { redirect_to picture_url(@picture), notice: "Picture was successfully updated." }
@@ -47,12 +48,17 @@ class PicturesController < ApplicationController
   end
 
   def destroy
-    set_picture
     @picture.destroy
     respond_to do |format|
       format.html { redirect_to pictures_url, notice: "Picture was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  def confirm
+    @picture = Picture.new(picture_params)
+    @picture = current_user.pictures.build(picture_params)
+    render :new if @picture.invalid?
   end
 
   private
@@ -61,6 +67,6 @@ class PicturesController < ApplicationController
     end
 
     def picture_params
-      params.require(:picture).permit(:content, :image, :image_cache)
+      params.require(:picture).permit(:content, :image, :image_cache, :user_id)
     end
 end

@@ -1,25 +1,21 @@
-<%= form_with(model: picture) do |form| %>
-  <% if picture.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(picture.errors.count, "error") %> prohibited this picture from being saved:</h2>
-
-      <ul>
-        <% picture.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+<table>
+  <thead>
+    <tr>
+      <th>Content</th>
+      <th>Image</th>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
  <body>
-    <% @pictures.each do |picture| %>
+    <% @favorites.each do |favorite| %>
       <tr>
-        <div><td><%= image_tag picture.image.url if picture.image.present? %></td></div>
-        <<td><%= picture.user.name %></td>
-        <td><%= picture.content %></td>
-        <td><%= link_to "詳細を確認", picture_path(picture.id) %></td>
-        <td><%= link_to "編集", edit_picture_path(picture.id) %></td>
-        <td><%= link_to "削除", picture_path(picture.id), method: :delete, data: {confirm: "本当に削除しますか?"} %></td>
+        <td><%= favorite.picture.content if favorite.picture.content.present? %></td>
+        <div><td><%= image_tag favorite.picture.image.url, size: '100x100' if favorite.picture.image.present? %></td></div>
+        <td><%= favorite.picture.user.name if favorite.picture.content.present?%></td>
       </tr>
     <% end %>
   </body>
-<% end %>
+</table>
+
+<%= link_to 'Back', pictures_path %>

@@ -1,7 +1,7 @@
 <h1><%= @user.name %>のページ</h1>
-
-<p>プロフィール画像: <%= image_tag @user.image.url if @user.image.present? %></p>
+<p>プロフィール画像:</p>
+<div class = "profile-image"><%= image_tag @user.image.url if @user.image.present? %></div>
 <p>メールアドレス: <%= @user.email %></p>
 
-<%= link_to "編集する", edit_user_path(@user.id) if  @user.id == current_user.id%>
-<%= link_to "画像一覧画面へ", pictures_path%>
+<%= link_to "Edit", edit_user_path(@user.id) if @user.id == current_user.id%>
+<%= link_to "Go to Photo_Index", pictures_path%>

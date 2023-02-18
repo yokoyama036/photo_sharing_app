@@ -1,6 +1,37 @@
-<h1>Log in</h1>
-<%= form_with(scope: :session, url: sessions_path, local: true) do |f| %>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>ログイン</title>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<style>
+html {
+	height: 100%;
+	margin: 0 auto;
+	padding: 0;
+	display: table;
+}
+body {
+	min-height: 100%;
+	margin: 0 auto;
+	padding: 0;
+	display: table-cell;
+	vertical-align: middle;
+  text-align: 
+}
+.label {
+	text-align: center;
+}
+h3 {
+	text-align: center;
+}
 
+</style>
+</head>
+<body>
+
+<h3>Log in</h3>
+<%= form_with(scope: :session, url: sessions_path, local: true) do |f| %>
+<div class = "label">
   <div><%= f.label :email %></div>
   <div><%= f.email_field :email %></div>
   <div><%= f.label :password %></div>
