@@ -1,6 +1,8 @@
+<h5><%= notice %><h5>
+
 <strong>Image:</strong>
 
-<p><%= image_tag @picture.image.url, size: '100x100'%></p>
+<p><%= image_tag @picture.image.url, size: '100x100' if @picture.image.present?%></p>
 <p>投稿者: <%= @picture.user.name %></p>
 <p>コメント: <%= @picture.content %></p>
 

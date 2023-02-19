@@ -1,8 +1,9 @@
-<h1>Pictures</h1>
+
+<h2>Pictures</h2>
+
+<h4><%= notice %><h4>
 
 <table>
-
-
   <tbody>
     <% @pictures.each do |picture| %>
       <tr>
@@ -11,16 +12,16 @@
         <td><%= picture.content %></div></td>
         <% if current_user.already_favorited?(picture) %>
         <% favorite_id = Favorite.where(user_id: current_user.id).find_by(picture_id: picture.id).id %>
-            <td><div class ='btn btn-danger'><%= link_to "お気に入り解除", favorite_path(id: favorite_id), method: :delete %></td>
+            <td><div class ='btn btn-light'><%= link_to "お気に入り解除", favorite_path(id: favorite_id), method: :delete %></td>
         <% else %>
-            <td><div class ='btn btn-primary'><%= link_to "お気に入り登録", favorites_path(picture_id: picture.id), method: :post %></td>
+            <td><div class ='btn btn-light'><%= link_to "お気に入り登録", favorites_path(picture_id: picture.id), method: :post %></td>
         <% end %>
-        <td><div class ='btn btn-outline-info'><%= link_to "詳細を確認", picture_path(picture.id) %></div></td>
-        <td><div class ='btn btn-edit'><%= link_to "編集", edit_picture_path(picture.id) if picture.user.id == current_user.id %></div></td>
-        <td><div class ='btn btn-delete'><%= link_to "削除", picture_path(picture.id), method: :delete, data: {confirm: "本当に削除しますか?"} if picture.user.id == current_user.id %></div></td>
+        <td><div class ='btn btn-light'><%= link_to "詳細を確認", picture_path(picture.id) %></div></td>
+        <td><%= link_to "編集", edit_picture_path(picture.id) if picture.user.id == current_user.id %></td>
+        <td><%= link_to "削除", picture_path(picture.id), method: :delete, data: {confirm: "本当に削除しますか?"} if picture.user.id == current_user.id %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= link_to 'New Picture', new_picture_path %>
+<h3><%= link_to 'New Picture', new_picture_path %><h3>

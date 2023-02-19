@@ -1,14 +1,51 @@
-<h1>Sign up</h1>
+<style>
+html {
+	height: 100%;
+	margin: 0 auto;
+	padding: 0;
+	display: table;
+}
 
+header{
+  text-align: left;
+}
+
+body {
+	min-height: 100%;
+	margin: 0 auto;
+	padding: 0;
+	display: table-cell;
+	vertical-align: middle;
+  text-align: center;
+}
+
+</style>
+<head>
+<% if @user.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@user.errors.count, "error") %> prohibited this <%= @user.name %> from being saved:</h2>
+    <ul>
+    <% @user.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+<title>Sign up</title>
+</head>
+<body>
+
+<h3>Sign up</h3>
 <%= form_with(model: @user, local: true) do |f| %>  
- 
-  <div><%= f.label :name %> </div>
-  <div><%= f.text_field :name %></div>
-  <div><%= f.label :email %></div>
-  <div><%= f.email_field :email %></div>
-  <div><%= f.label :password %></div>
-  <div><%= f.password_field :password %></div>
-  <div><%= f.label :password_confirmation %></div>
-  <div><%= f.password_field :password_confirmation %></div>
-  <div><%= f.submit "Create my account" %></div>
+  <div class = "label">
+    <div><%= f.label :name %> </div>
+    <div><%= f.text_field :name %></div>
+    <div><%= f.label :email %></div>
+    <div><%= f.email_field :email %></div>
+    <div><%= f.label :password %></div>
+    <div><%= f.password_field :password %></div>
+    <div><%= f.label :password_confirmation %></div>
+    <div><%= f.password_field :password_confirmation %></div>
+  </div>
+    <div class = "btn"><%= f.submit "Create account" %></div>
 <% end %>

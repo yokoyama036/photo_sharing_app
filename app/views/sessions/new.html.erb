@@ -1,8 +1,3 @@
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>ログイン</title>
-<link rel="stylesheet" href="css/bootstrap.min.css">
 <style>
 html {
 	height: 100%;
@@ -16,26 +11,33 @@ body {
 	padding: 0;
 	display: table-cell;
 	vertical-align: middle;
-  text-align: 
 }
 .label {
 	text-align: center;
 }
-h3 {
+h3,h4 {
 	text-align: center;
+}
+title {
+	padding-top: 200;
 }
 
 </style>
+<head>
+<title>ログイン</title>
 </head>
+
+
 <body>
-
-<h3>Log in</h3>
+<div class = "title"><h3>Log in</h3></div>
+<h4><%= notice %><h4>
 <%= form_with(scope: :session, url: sessions_path, local: true) do |f| %>
-<div class = "label">
-  <div><%= f.label :email %></div>
-  <div><%= f.email_field :email %></div>
-  <div><%= f.label :password %></div>
-  <div> <%= f.password_field :password %></div>
+	<div class = "label">
+		<div><%= f.label :email %></div>
+		<div><%= f.email_field :email %></div>
+		<div><%= f.label :password %></div>
+		<div> <%= f.password_field :password %></div>
 
-  <div><%= f.submit "Log in" %></div>
+		<div class = "btn"><%= f.submit "Log in" %></div>
+	</div>
 <% end %>
